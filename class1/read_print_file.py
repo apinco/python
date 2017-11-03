@@ -1,3 +1,3 @@
 file=open("hello.py")
 for l in file.readlines():
-    print(l)
+    print(l.rstrip("\n"))
