@@ -1,3 +1,4 @@
+
 # Dicttionary
 # Create using curly brackets
 mydict1 = { 'adam' : 1, 2 : 2}
@@ -56,3 +57,9 @@ print(type(tmp))
 print(tmp)
 print(sorted(tmp, reverse=True))
 print("")
+
+# List comprehension - A python technique that allows you to write the above code
+# more more compactly like this:
+scores = { 'adam' : 100, 'zane' : 10, 'scott' : 90}
+print(sorted([ (v,k) for k,v in scores.items()], reverse=True))
+
