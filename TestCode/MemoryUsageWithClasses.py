@@ -31,15 +31,12 @@ class Student(Person):
         super().__init__()
         Student.count += 1
 
-
-
-
 # Parse Arguments
 ap = argparse.ArgumentParser()
-ap.add_argument("--array_count", help="Number of items to add to the array", type=int, default=100000)
+ap.add_argument("--array_count", help="Number of items to add to the array", type=int, default=10000000)
 ap.add_argument("--word_to_add", help="Word to add array_count times", default="1234567890")
 ap.add_argument("--create_in_thread", help="When True, runs the function use_memory in a thread, otherwise calls without threads", default=True)
-ap.add_argument("--threads_after_memory_hog", help="When true, creates 10 threads which sleep for 15 seconds after the memory hog has already taken place to see how memory is affected", default=True)
+ap.add_argument("--threads_after_memory_hog", help="When true, creates 10 threads which sleep for 5 seconds after the memory hog has already taken place to see how memory is affected", default=True)
 args = ap.parse_args()
 
 #Define Globals
@@ -53,7 +50,7 @@ def show_mem_usage(msg):
     print("current:", convert_to_mb(current), "peak:", convert_to_mb(peak))
 
 def sleep_thread():
-    time.sleep(15)
+    time.sleep(5)
 
 def convert_to_mb(bytes):
     mb_size = 1024*1000
@@ -61,20 +58,19 @@ def convert_to_mb(bytes):
 
 def use_memory():
     i = 1
-    while i < args.array_count:
+    while i <= args.array_count:
         try:
             if (i % 2):
                 o = Employee()
             else:
                 o = Student()
-            o.set_name("adam" + str(Person.count))
+            o.set_name(type(o).__name__ + str(o.count))
             mem_hog.append(o)
             i = i + 1
         except Exception as e:
             print("Error hit")
             print(e.__doc__)
             exit(0)
-
 
 #Main Start
 if (args.create_in_thread):
